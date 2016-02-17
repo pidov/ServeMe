@@ -22,4 +22,3 @@ export const LoginForm = React.createClass({
     )
   }
 })
-
