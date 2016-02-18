@@ -1,7 +1,7 @@
 import React from 'react'
 import {Grid, Row, Col, ListGroup, ListGroupItem} from 'react-bootstrap'
 
-export const Dashboard = React.createClass({
+class Dashboard extends React.Component {
   render() {
    return (
       <Grid fluid={true}>
@@ -23,5 +23,6 @@ export const Dashboard = React.createClass({
       </Grid>
     )
   }
-})
+}
 
+export default Dashboard

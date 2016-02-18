@@ -3,7 +3,7 @@ import { Link } from 'react-router'
 
 import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
-export const Index = React.createClass({
+class Index extends React.Component {
   render() {
     return (
       <div>
@@ -23,4 +23,6 @@ export const Index = React.createClass({
       </div>
     )
   }
-})
+}
+
+export default Index
