@@ -6,7 +6,7 @@ module.exports = {
     app: [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server',
-      './src/app.jsx'
+      './src/index.jsx'
     ]
   },
   output: {
@@ -19,7 +19,7 @@ module.exports = {
       loader: 'style!' + 'css?sourceMap'
     }, {
       test: /\.scss$/,
-      loader: 'style!' + 'css?sourceMap' + '!sass?sourceMap' 
+      loader: 'style!' + 'css?sourceMap' + '!sass?sourceMap'
     }, {
       test: /\.(js|jsx)$/,
       exclude: /node_modules/,
@@ -33,13 +33,19 @@ module.exports = {
       loader: 'url-loader'
     }]
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   devServer: {
     contentBase: './dist',
     hot: true
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Awesome ServeMe Project'
+      title: 'Awesome ServeMe Project',
+      template: 'node_modules/html-webpack-template/index.ejs',
+      appMountId: 'app',
+      inject: false
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
