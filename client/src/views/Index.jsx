@@ -1,25 +1,24 @@
 import React from 'react'
 import { Link } from 'react-router'
-import AppBar from 'material-ui/lib/app-bar';
-import FlatButton  from 'material-ui/lib/flat-button';
+
+import { Navbar, Nav, NavItem } from 'react-bootstrap';
 
 export const Index = React.createClass({
   render() {
     return (
       <div>
-        <AppBar title="ServeMe" showMenuIconButton={false}>
-          <div className="navigation" style={{marginTop: '15px'}}>
-            <Link to="/login">
-              <FlatButton  label="Login" primary={true}/>
-            </Link>
-            <Link to="/register">
-              <FlatButton  label="Register" primary={true}/>
-            </Link>
-            <Link to="/dashboard">
-              <FlatButton  label="Dashboard" primary={true}/>
-            </Link>
-          </div>
-        </AppBar>
+      <Navbar>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <a href="#">React-Bootstrap</a>
+          </Navbar.Brand>
+        </Navbar.Header>
+        <Nav>
+          <NavItem eventKey={1} href="/#/login">Login</NavItem>
+          <NavItem eventKey={2} href="/#/register">Register</NavItem>
+          <NavItem eventKey={3} href="/#/dashboard">Dashboard</NavItem>
+        </Nav>
+      </Navbar>
         {this.props.children}
       </div>
     )

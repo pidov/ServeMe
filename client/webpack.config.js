@@ -43,7 +43,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       title: 'Awesome ServeMe Project',
-      template: 'node_modules/html-webpack-template/index.ejs',
+      template: './src/assets/index.ejs',
       appMountId: 'app',
       inject: false
     }),
