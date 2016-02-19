@@ -1,24 +1,42 @@
 import React from 'react'
-import Paper from 'material-ui/lib/paper';
-import RaisedButton from 'material-ui/lib/raised-button';
-import TextField from 'material-ui/lib/text-field';
+import {Well, Input, Button} from 'react-bootstrap'
 
-export const LoginForm = React.createClass({
+class LoginForm extends React.Component {
+  constructor(props) {
+    super (props);
+  }
+
   render() {
+   const {isLoading} = this.props
    return (
-      <div>
-        <TextField
-          hintText="john@doe.com"
-          floatingLabelText="Email"
-          fullWidth={true}/>
-        <TextField
-          hintText="I hope it's complex"
-          floatingLabelText="Password"
-          fullWidth={true}
-          type="password"/>
-        <br /><br />
-        <RaisedButton label="Login" primary={true}/>
-      </div>
+      <Well>
+        <form onSubmit={this.props.onSubmit}>
+          <Input
+            type="text"
+            placeholder="admin@serveme.com"
+            label="Enter username below"
+            ref="input"
+            groupClassName="group-class"
+            labelClassName="label-class"
+            disabled={isLoading}
+            />
+          <Input
+            type="password"
+            placeholder="P@55w0rD"
+            label="Enter your super secret pass below"
+            ref="input"
+            groupClassName="group-class"
+            labelClassName="label-class"
+            disabled={isLoading}
+            />
+          <Button
+      	    type="submit"
+      	    bsSize="sm"
+      	    disabled={isLoading}>Login</Button>
+        </form>
+      </Well>
     )
   }
-})
+}
+
+export default LoginForm

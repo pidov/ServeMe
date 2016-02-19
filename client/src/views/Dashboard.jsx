@@ -1,35 +1,28 @@
 import React from 'react'
-import LeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import {Grid, Row, Col, ListGroup, ListGroupItem} from 'react-bootstrap'
 
-export const Dashboard = React.createClass({
+class Dashboard extends React.Component {
   render() {
    return (
-      <div>
-        <LeftNav open={true}>
-          <List subheader="Nested List Items">
-            <ListItem key={6} primaryText="Users" />
-            <ListItem key={5} primaryText="Messages" initiallyOpen={true} primaryTogglesNestedList={true} nestedItems={[
-                <ListItem
-                  key={1}
-                  primaryText="Inbox" />,
-                <ListItem
-                  key={2}
-                  primaryText="Sent"/>,
-                <ListItem
-                  key={3}
-                  primaryText="Starred" />,
-                <ListItem
-                  key={4}
-                  primaryText="Spam" />,
-              ]}
-            />
-          </List>
-        </LeftNav>
-      </div>
+      <Grid fluid={true}>
+        <Row>
+          <Col xs={3} className="sidebar">
+            <ListGroup>
+              <ListGroupItem href="/#/">Home</ListGroupItem>
+              <ListGroupItem href="#link2">Link 2</ListGroupItem>
+              <ListGroupItem onClick={() => {alert('Clicked')}}       >
+                Trigger an alert
+              </ListGroupItem>
+            </ListGroup>
+          </Col>
+
+          <Col xs={9}>
+            Content goes here
+          </Col>
+        </Row>
+      </Grid>
     )
   }
-})
+}
 
+export default Dashboard

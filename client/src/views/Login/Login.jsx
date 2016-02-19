@@ -1,18 +1,34 @@
 import React from 'react'
-import Paper from 'material-ui/lib/paper';
 import LoginStyles from './LoginStyles.css'
-import {LoginForm} from '../../components/LoginForm'
+import LoginForm from '../../components/LoginForm'
 
-export const Login = React.createClass({
+class Login extends React.Component {
+  constructor (props) {
+    super (props)
+
+    this.state = {
+      isLoading: false
+    }
+  }
+
+  _login(synthetic, reactId, event) {
+    // TODO: Login to server
+    this.setState({
+      isLoading: true
+    })
+    setTimeout(() => this.setState({
+      isLoading: false
+    }), 500)
+  }
+
   render() {
-   return (
+    return (
       <div className="login-container">
         <h1>Logo</h1>
-        <Paper className="login-content">
-          <LoginForm />
-        </Paper>
+        <LoginForm isLoading={this.state.isLoading} onSubmit={this._login.bind(this)}/>
       </div>
     )
   }
-})
+}
 
+export default Login
