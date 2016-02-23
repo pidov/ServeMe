@@ -11,7 +11,8 @@ class Login extends React.Component {
     }
   }
 
-  _login(synthetic, reactId, event) {
+  _login(creds) {
+    console.log(creds);
     // TODO: Login to server
     this.setState({
       isLoading: true
@@ -22,12 +23,24 @@ class Login extends React.Component {
   }
 
   render() {
+    const { dispatch, isAuthenticated, errorMessage } = this.props
     return (
       <div className="login-container">
         <h1>Logo</h1>
-        <LoginForm isLoading={this.state.isLoading} onSubmit={this._login.bind(this)}/>
+        <LoginForm isLoading={this.state.isLoading} onSubmit={this._login.bind(this)} />
       </div>
     )
+  }
+}
+
+function mapStateToProps(state) {
+  const { users, auth } = state;
+  const { isAuthenticated, errorMessage } = auth;
+
+  return {
+    users,
+    isAuthenticated,
+    errorMessage
   }
 }
 

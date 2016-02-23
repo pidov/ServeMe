@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import {Well, Input, Button} from 'react-bootstrap'
 
 class LoginForm extends React.Component {
@@ -6,16 +6,26 @@ class LoginForm extends React.Component {
     super (props);
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+
+    const creds = {
+      username: this.refs.username.getValue().trim(),
+      password: this.refs.password.getValue().trim()
+    }
+    this.props.onSubmit(creds)
+  }
+
   render() {
-   const {isLoading} = this.props
+   const {isLoading, errorMessage} = this.props
    return (
       <Well>
-        <form onSubmit={this.props.onSubmit}>
+        <form onSubmit={this.handleSubmit.bind(this)}>
           <Input
             type="text"
             placeholder="admin@serveme.com"
             label="Enter username below"
-            ref="input"
+            ref="username"
             groupClassName="group-class"
             labelClassName="label-class"
             disabled={isLoading}
@@ -24,11 +34,14 @@ class LoginForm extends React.Component {
             type="password"
             placeholder="P@55w0rD"
             label="Enter your super secret pass below"
-            ref="input"
+            ref="password"
             groupClassName="group-class"
             labelClassName="label-class"
             disabled={isLoading}
             />
+          {errorMessage &&
+            <p>{errorMessage}</p>
+          }
           <Button
       	    type="submit"
       	    bsSize="sm"
@@ -37,6 +50,12 @@ class LoginForm extends React.Component {
       </Well>
     )
   }
+}
+
+LoginForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string,
+  isLoading: PropTypes.bool
 }
 
 export default LoginForm

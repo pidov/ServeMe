@@ -24,7 +24,7 @@ app.get('/', function(req, res) {
 
 app.get('/setup', function(req, res) {
  var ivan = new User({
-   name: 'Ivan Pidov',
+   username: 'Ivan Pidov',
    password: 'password',
    admin: true
  });
@@ -46,7 +46,7 @@ apiRoutes.get('/', function(req, res) {
 
 apiRoutes.post('/authenticate', function(req, res) {
   User.findOne({
-   name: req.body.name
+   username: req.body.username
   }, function(err, user) {
     if (err) throw err;
 
