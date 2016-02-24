@@ -13,27 +13,47 @@ class Login extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this._redirectIfLoggedIn()
+  }
+
+  componentDidUpdate() {
+    this._redirectIfLoggedIn()
+  }
+
+  _redirectIfLoggedIn() {
+    if (this.props.isAuthenticated) {
+      this.context.router.push('/')
+    }
+  }
+
   _login(creds) {
     console.log(creds);
-    // TODO: Login to server
     this.props.dispatch(loginUser(creds));
-    this.setState({
-      isLoading: true
-    })
-    setTimeout(() => this.setState({
-      isLoading: false
-    }), 500)
   }
 
   render() {
     const { dispatch, isAuthenticated, errorMessage } = this.props
+
     return (
-      <div className="login-container">
-        <h1>Logo</h1>
-        <LoginForm isLoading={this.state.isLoading} onSubmit={this._login.bind(this)} />
+            <div>
+      {!isAuthenticated &&
+        <div className="login-container">
+          <h1>Logo</h1>
+          <LoginForm isLoading={this.state.isLoading} onSubmit={this._login.bind(this)} />
+        </div>
+      }
+
+      {isAuthenticated &&
+        <div> Hello user </div>
+      }
       </div>
     )
   }
+}
+
+Login.contextTypes = {
+  router: React.PropTypes.object.isRequired
 }
 
 function mapStateToProps(state) {

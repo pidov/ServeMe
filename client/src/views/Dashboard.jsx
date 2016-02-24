@@ -1,7 +1,25 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import {Grid, Row, Col, ListGroup, ListGroupItem} from 'react-bootstrap'
 
 class Dashboard extends React.Component {
+
+
+  componentDidMount() {
+    console.log(this.props);
+    this._redirectIfLoggedIn()
+  }
+
+  componentDidUpdate() {
+    this._redirectIfLoggedIn()
+  }
+
+  _redirectIfLoggedIn() {
+    if (!this.props.isAuthenticated) {
+      this.context.router.push('/login')
+    }
+  }
+
   render() {
    return (
       <Grid fluid={true}>
@@ -25,4 +43,16 @@ class Dashboard extends React.Component {
   }
 }
 
-export default Dashboard
+Dashboard.contextTypes = {
+  router: React.PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+  const { isAuthenticated} = state.auth;
+
+  return {
+    isAuthenticated
+  }
+}
+
+export default connect(mapStateToProps)(Dashboard)
