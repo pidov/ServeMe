@@ -9,15 +9,14 @@ var config = require('./config');
 var User = require('./app/models/user');
 
 var port = process.env.PORT || 3000
-mongoose.connect(config.database);
-app.set('superSecret', config.secret);
 
+mongoose.connect(config.database);
+
+app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-
 app.use(morgan('dev'));
-
 app.use(function(req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
   next()
@@ -43,7 +42,6 @@ app.get('/setup', function(req, res) {
 })
 
 var apiRoutes = express.Router();
-
 
 apiRoutes.get('/', function(req, res) {
  res.json({message: 'Welcome to auth api'});
@@ -94,9 +92,6 @@ apiRoutes.use(function(req, res, next) {
   }
 })
 
-
-
-
 apiRoutes.get('/users', function(req, res) {
   User.find({}, function(err, users) {
     if (err) throw err
@@ -104,20 +99,7 @@ apiRoutes.get('/users', function(req, res) {
   })
 })
 
-
-
 app.use('/api', apiRoutes);
 app.listen(port);
+
 console.log('Magic happens at fucking port: ', port);
-
-
-
-
-
-
-
-
-
-
-
-
