@@ -18,6 +18,7 @@ function requestLogin(creds) {
 }
 
 function receiveLogin(user) {
+  localStorage.setItem('token', user.token)
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
@@ -39,26 +40,24 @@ export function loginUser(creds) {
   let config = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/x-www-form-urlencoded'
     },
     body: `username=${creds.username}&password=${creds.password}`
   }
-
   return dispatch => {
     dispatch(requestLogin(creds));
 
-    return fetch('http://localhost:3000/', config)
+    return fetch('http://localhost:3000/api/authenticate', config)
       .then(response =>
-        response.json().then(user => ({user, response}))
-      ).then(({user, response}) => {
+        response.json().then(data => ({data, response}))
+      ).then(({data, response}) => {
         if (!response.ok) {
-	  dispatch(loginError(user.message))
-	  return Promise.reject(user)
-	} else {
-	  localStorage.setItem('token', user.token)
-	  dispatch(receuveLogin(user))
-	}
-      }).catch(err => console.log('Error: ', err))
+          dispatch(loginError(data.message))
+          return Promise.reject(data)
+        } else {
+          dispatch(receiveLogin(data))
+        }
+      }).catch(err => console.log('Error: ', err)) //TODO: Add error notifications
   }
 }
 

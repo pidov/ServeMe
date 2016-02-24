@@ -1,6 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import LoginStyles from './LoginStyles.css'
 import LoginForm from '../../components/LoginForm'
+import { loginUser } from '../../actions'
 
 class Login extends React.Component {
   constructor (props) {
@@ -14,6 +16,7 @@ class Login extends React.Component {
   _login(creds) {
     console.log(creds);
     // TODO: Login to server
+    this.props.dispatch(loginUser(creds));
     this.setState({
       isLoading: true
     })
@@ -44,4 +47,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default Login
+export default connect(mapStateToProps)(Login)

@@ -11,7 +11,7 @@ function auth(state = {
 }, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return Object.assign({}. state, {
+      return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
         user: action.creds
