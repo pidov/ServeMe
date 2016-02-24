@@ -18,6 +18,11 @@ app.use(bodyParser.json());
 
 app.use(morgan('dev'));
 
+app.use(function(req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8080');
+  next()
+})
+
 app.get('/', function(req, res) {
   res.send('Hello. The api is at http://localhost:' + port + '/api');
 });
@@ -49,12 +54,11 @@ apiRoutes.post('/authenticate', function(req, res) {
    name: req.body.name
   }, function(err, user) {
     if (err) throw err;
-
     if (!user) {
-      res.json({success: false, message: 'Authentication failed. User Not found'})
+      res.status(401).json({success: false, message: 'Authentication failed. User Not found'})
     } else if(user) {
       if (user.password != req.body.password) {
-        res.json({success: false, message: 'Authentication failed. Wrong password'})
+        res.status(401).json({success: false, message: 'Authentication failed. Wrong password'})
       } else {
         var token = jwt.sign(user, app.get('superSecret'), {
           expiresInMinutes: 1440
