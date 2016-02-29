@@ -21,18 +21,30 @@ namespace AspNetIdentity.WebApi.Migrations
 
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
 
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+
             var user = new ApplicationUser()
             {
-                UserName = "SuperPowerUser",
-                Email = "taiseer.joudeh@mymail.com",
+                UserName = "AdminUser",
+                Email = "admin@admin.com",
                 EmailConfirmed = true,
-                FirstName = "Taiseer",
-                LastName = "Joudeh",
+                FirstName = "Rosen",
+                LastName = "Petrov",
                 Level = 1,
                 JoinDate = DateTime.Now.AddYears(-3)
             };
 
-            manager.Create(user, "MySuperP@ssword!");
+            manager.Create(user, "1qaz@WSX");
+
+            if (roleManager.Roles.Count() == 0)
+            {
+                roleManager.Create(new IdentityRole { Name = "Admin" });
+                roleManager.Create(new IdentityRole { Name = "User" });
+            }
+
+            var adminUser = manager.FindByName("AdminUser");
+
+            manager.AddToRoles(adminUser.Id, new string[] { "Admin" });
         }
     }
 }
